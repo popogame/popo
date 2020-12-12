@@ -3,7 +3,7 @@ from popo import g
 from popo import color # color 模块提供彩色打印、逐字打印等效果
 
 
-fruit = {                                               # fruit: 这是你需要定义的位置信息，如下：
+fruit = {                                               # fruit: 这是你需要定义的位置变量名
     'name': '泡泡水果店',                                # name: 位置名称
     'class': 'Fruit',                                   # class: 位置的类名称，本例为 Fruit，后面需真实定义 class Fruit
     'desc': '可以打零工赚钱的地方',                       # desc: 可写可不写，此位置的补充描述
@@ -43,8 +43,8 @@ prices = {'橘子': 3, '葡萄': 12, '毛桃': 9, '香蕉': 6, '苹果': 7, '榴
 class Fruit():
 
     def __init__(self):
-        self.paid = 0
-        self.fine = 0
+        self.paid = 0  # 定义玩家赚的金币数
+        self.fine = 0  # 定义玩家被扣罚的金币数
 
     def cash(self, text):
 
