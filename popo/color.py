@@ -76,9 +76,14 @@ def profile(text):
     p.text_print(color + text + reset)
 
 
-def index(text, ):
+def index(text, end=True):
     color = fg(221)
-    p.text_print(color + text + reset)
+    p.text_print(color + text + reset, end)
+
+
+def sub(text, end=True):  # 下标信息，浅灰色，直接打印，自定义尾换行
+    color = fg(239)
+    p.text_print(color + ' (' + text + ')' + reset, end)
 
 
 def vmap(text):

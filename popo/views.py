@@ -73,9 +73,7 @@ def current(_map=True):
         color.vmap(maps.home)
     color.label('当前场所: ')
     place_name = g.current_place.name
-    # if place_name != '家':
-    #     color.vname('家')
-    #     color.info('/', end=False)
+    place_module = g.current_place.module
     color.vname(place_name)
 
     if g.current_scene:
@@ -83,16 +81,27 @@ def current(_map=True):
         color.label('当前位置: ')
         color.vname(g.current_scene['name'])
     else:
-        color.info('\n\n当前可以进入的位置如下:\n')
+        if place_module == 'home':
+            color.info('\n\n当前可以进入的场所如下:\n')
+        else:
+            color.info('\n\n当前可以进入的位置如下:\n')
         for _id, scene in g.current_place.scenes.items():
-            color.index(f'{_id}. {scene["name"]}')
-        if place_name != '家':
+            if 'desc' in scene:
+                color.index(f'{_id}. {scene["name"]}', end=False)
+                color.sub(scene['desc'])
+            else:
+                color.index(f'{_id}. {scene["name"]}')
+        if place_module != 'home':
             color.info('0. 返回上一层')
 
     if g.current_scene:
         color.info('\n\n当前支持的命令如下:\n')
-        for k, v in g.current_scene['actions'].items():
-            color.index(f'{k}. {v["name"]}')
+        for _id, action in g.current_scene['actions'].items():
+            if 'desc' in action:
+                color.index(f'{_id}. {action["name"]}', end=False)
+                color.sub(action['desc'])
+            else:
+                color.index(f'{_id}. {action["name"]}')
         color.info('0. 返回上一层')
 
 

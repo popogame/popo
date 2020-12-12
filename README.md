@@ -1,11 +1,11 @@
-# POPO Game
+# POPO Game <sub>coding is game</sub>
 
-「泡泡世界」是一个文字版的 RPG 游戏框架，目的是为 Python 初学者提供一个简单有趣的实践项目，来编写自己的游戏，开发者只需要数十行代码即可扩展游戏场所、位置和互动操作。
+「泡泡世界」是一个文字版的 RPG 游戏框架，目的是为 Python 初学者提供一个简单有趣的实践项目，轻松开发出属于自己的游戏，开发者只需要数十行代码即可扩展游戏场所、位置和互动操作。
 
 
 ## 快速开始：
 
-1. 下载代码到本地
+1. 下载代码到本地，如果是解压包，请解压
 
 2. 安装依赖
 
@@ -13,11 +13,26 @@
 pip install -U colored
 ```
 
-3. 在命令行中启动游戏
+3. 为了更好的体验游戏，建议命令行终端使用 Hyper，请自行下载安装：[官网下载](https://hyper.is/)
 
-```shell
-python start.py
-```
+    - 把 Hyper 添加到右键菜单
+
+        打开 Hyper，依次点击左上角 `菜单按钮` -> `plugins` -> `install Hyper CLI command in PATH`
+        然后，在任意文件夹下，右键，可以发现有一个选项:`Open Hyper here`，点击即可在当前目录打开 Hyper
+
+    - Hyper 还支持一些插件和主题，感兴趣的自行安装。[Hyper 主题](https://hyper.is/themes)
+
+4. 在命令行终端中启动游戏
+
+    - 进入已下载的项目文件夹 `popo`(如果是下载的压缩包，解压后可能是文件夹 `pop-main`)下，右键点击 `Open Hyper here`
+       
+        > 或打开 CMD 终端中，切换到已下载的项目文件夹
+
+    - 执行如下命令：
+
+        ```shell
+        python start.py
+        ```
 
 ## 代码架构
 
@@ -56,7 +71,7 @@ popo                 # 项目文件夹
 
 ### 1. 场所构思
 
-在泡泡的世界里，场所是一个小的活动空间，如：街道、河流、学校，每个场所应该有几个场景位置，如街道场所有打工、购物、吃饭等场景。
+在泡泡的世界里，场所是一个小的活动空间，如：街道、河流、学校，每个场所应该有几个位置能够发生故事场景，如街道场所有水果店、面馆等位置（故事场景）。
 
 ### 2. 场所模块
 
@@ -96,13 +111,13 @@ class App():                                            # 框架约定的场所�
         self.scenes = {'1': fruit, '2': noodle}         # scenes: 定义本场所包含的位置集合，'1', '2' 为地点编号，必须是字符类型 \
                                                         # fruit, noodle 为上面自定义的位置信息，一定要完整正确  
 
-class Fruit():                                          # Fruit 位置的类
+class Fruit():                                          # 定义位置类: Fruit
 ...                                                     # 略过，详情见 street.py 文件
 ...
 ...
 
 
-class Noodle():                                         # Noodle 位置的类
+class Noodle():                                         # 定义位置类: Noodle
 
     def __init__(self):                                      
         pass

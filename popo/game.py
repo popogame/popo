@@ -17,8 +17,12 @@ def loading():
         # 初始化场所模块，值为 App 类的实例
         g.maps[mod] = getattr(module, 'App')(str(i), mod)
         g.scenes[mod] = {}
+        
         if i > 0:
-            home_scenes[str(i)] = {'name': g.maps[mod].name}
+            if hasattr(g.maps[mod], 'desc'):
+                home_scenes[str(i)] = {'name': g.maps[mod].name, 'desc': g.maps[mod].desc}
+            else:
+                home_scenes[str(i)] = {'name': g.maps[mod].name}
     g.maps['home'].scenes = home_scenes
 
 
@@ -34,7 +38,6 @@ def switch_place():
             if place.id == text:
                 g.current_place = place
                 flag = True
-        # g.current_cmd = None
         if not flag:
             color.error('--- 没有此场所编号 ---', end=False)
             color.next()

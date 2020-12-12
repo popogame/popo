@@ -19,7 +19,7 @@ class Character:
                 name = color._input(' 一个角色名字:')
                 self.data['name'] = name
                 self.save()
-                color.info('# 创建人物成功')
+                color.info('\n# 创建人物成功\n')
 
             # 已有名字，直接进入角色
             else:
