@@ -43,8 +43,8 @@ prices = {'橘子': 3, '葡萄': 12, '毛桃': 9, '香蕉': 6, '苹果': 7, '榴
 class Fruit():
 
     def __init__(self):
-        self.paid = 0  # 定义玩家赚的金币数
-        self.fine = 0  # 定义玩家被扣罚的金币数
+        self.paid = 0  # 定义玩家赚的工钱
+        self.fine = 0  # 定义玩家被扣罚的工钱
 
     def cash(self, text):
 
@@ -52,7 +52,8 @@ class Fruit():
         weight = {}  # 水果重量表
         total = 0    # 预期总价格
         # color.info 打印提示性信息，浅灰色字体
-        color.info('\n有一位顾客的购物清单如下:\n') 
+        color.info('\n有一位顾客的购物清单如下:\n')
+        color.info('-----------------------') 
         for fruit in cart:
             weight[fruit] = randint(1, 9)  # 为购物车中的水果称重（此处为 1~9 随机赋值）
             total += prices[fruit] * weight[fruit]  # 计算预期总价格
@@ -67,21 +68,40 @@ class Fruit():
             color.talk('收银正确，请继续加油吧~')  # 打印恭喜对话，
         else:  # 如果用户输入的计算结果有误
             self.fine += 10  # 罚款记录项 +10
-            g.player.coins = -10  # 实际扣除操作，用户金币 -10
-            color.talk('啊哦，收银错误，倒扣10块！')  # 打印失败对话
+            g.player.coins_plus(-10)  # 实际扣除操作，用户金币 -10
+            color.talk('啊哦，收银错误，倒扣 10 金币！')  # 打印失败对话
+            color.talk(f'你现在总金币为: {g.player.coins} 金币。')
 
     def wage(self, text):
 
-        if self.fine > 0:
-            color.talk(f'钱都收错了，真是不用心啊，你被罚了 { self.fine} 元')
-            if self.paid > 0:
-                color.talk(f'不过好在你也算对了几次，赚了 {self.paid} 元')
-        elif self.paid == 0:
-            color.talk('你今天偷懒了吧，都没来上班，还想要工钱？')
+        balance = self.paid - self.fine  # 结余
+        paid = self.paid  # 临时保持工钱变量
+        fine = self.fine  # 临时保持罚金变量
+
+        if self.paid > 0:
+            g.player.coins_plus(self.paid)  # 支付工钱，即玩家金币 + paid
+
+        self.paid = 0  # 清空玩家待结算工钱
+        self.fine = 0  # 清空玩家结算钱被扣的工钱
+
+        if fine > 0:
+            color.talk(f'钱都收错了，真是不用心啊，你被罚了 {fine} 金币！')
+            if paid > 0:
+                color.talk(f'不过好在你也算对了 {paid // 10} 次，赚了 {paid} 金币！')
+                if balance == 0:
+                    color.talk(f'罚金与工钱正好抵消，你今天白干了，小兄die~')
+                elif balance > 0:
+                    color.talk(f'扣去罚金，你今天赚了 {balance} 金币！')
+                else:
+                    color.talk(f'真是白痴啊，金币没赚到，还被扣去 {balance} 金币！')
         else:
-            g.player.coins = self.paid  # coins 为 setter 属性赋值，会自动为 coins 加上 paid，相当于 coins += paid
-            color.talk(f'恭喜你，今天赚了 {self.paid - self.fine} 元!')
-            color.talk(f'你现在总金币为: {g.player.coins} 元。')
+            if paid == 0:
+                color.talk('你今天偷懒了吧，都没来上班，还想要工钱？')
+            else:
+                color.talk(f'恭喜你，今天赚了 {balance} 金币!')
+
+    
+        color.talk(f'你现在总金币为: {g.player.coins} 金币！')
 
 
 class Noodle():                                         # 定义位置类: Noodle

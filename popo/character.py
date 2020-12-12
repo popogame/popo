@@ -29,8 +29,7 @@ class Character:
     def coins(self):
         return self.data['coins']["balance"]
 
-    @coins.setter
-    def coins(self, value):
+    def coins_plus(self, value):
         if isinstance(value, int):
             self.data['coins']["balance"] += value
             self.save()
@@ -39,8 +38,7 @@ class Character:
     def level(self):
         return self.data["status"]["level"]
 
-    @level.setter
-    def level(self, value):
+    def level_plus(self, value):
         if isinstance(value, int):
             self.data["status"]["level"] += value
             self.save()
@@ -49,8 +47,7 @@ class Character:
     def hp(self):
         return self.data["status"]["hp"]
 
-    @hp.setter
-    def hp(self, value):
+    def hp_plus(self, value):
         if isinstance(value, int):
             self.data["status"]["hp"] += value
             self.save()
@@ -59,8 +56,7 @@ class Character:
     def max_hp(self):
         return self.data["status"]["max_hp"]
 
-    @max_hp.setter
-    def max_hp(self, value):
+    def max_hp_plus(self, value):
         if isinstance(value, int):
             self.data["status"]["max_hp"] += value
             self.save()
@@ -69,8 +65,7 @@ class Character:
     def battle(self):
         return self.data["status"]["battle"]
 
-    @battle.setter
-    def battle(self, value):
+    def battle_plus(self, value):
         if isinstance(value, int):
             self.data["status"]["battle"] += value
             self.save()
